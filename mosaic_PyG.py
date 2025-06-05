@@ -7,6 +7,22 @@ import torch
 from torch import nn
 from torch_scatter import scatter_add
 from torch_geometric.data import Data
+import argparse
+
+parser = argparse.ArgumentParser(description="Compute MOSAIC embeddings")
+parser.add_argument(
+    "--edge-file",
+    default="edges.tsv.gz",
+    help="Path to gzipped edge list",
+)
+parser.add_argument(
+    "--chunk-size",
+    type=int,
+    default=2_000_000,
+    help="Read edges in chunks of this size",
+)
+args = parser.parse_args()
+
 
 # Constants and mappings
 DIM = 128
@@ -16,8 +32,8 @@ MAX_ROUNDS = 50
 USE_CONTENT_ATT = True
 DIST2_COLORING = False
 
-CHUNK_SIZE = 2_000_000
-EDGE_FILE = "edges.tsv.gz"
+CHUNK_SIZE = args.chunk_size
+EDGE_FILE = args.edge_file
 
 EVIDENCE_MAP = {
     "ECO:0000315": 1.0,
