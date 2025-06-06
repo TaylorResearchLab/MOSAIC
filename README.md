@@ -16,3 +16,6 @@ Provide a gzipped edge list in tab-separated format and run:
 ```
 python mosaic_PyG.py --edge-file /path/to/edges.tsv.gz
 ```
+
+## Based on
+Original ideas & greedy coloring algorithm here https://arxiv.org/pdf/2410.05240
