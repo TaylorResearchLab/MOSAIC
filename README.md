@@ -1,21 +1,6 @@
 # MOSAIC
-The MOSAIC method for knowledge graph convergence
+The MOSAIC method for knowledge graph node embedding analysis
 
-## Requirements
+Graph embedding transforms complex networks into low-dimensional representations for analysis and downstream machine learning. Existing methods often rely on eigenvalue ordering, random-walk sampling, or neural optimization. We introduce MOSAIC, Multistep Operator Spectral Accumulation with Isolated Components, an unsupervised framework that constructs an accumulated diffusion operator from successive powers of a graph transition matrix. MOSAIC uses Krylov subspace analysis to identify dominant spectral components according to their convergence behavior. This approach emphasizes persistent and spectrally separated diffusion modes rather than selecting embedding coordinates solely by eigenvalue magnitude.
 
-Install dependencies with:
-
-```
-pip install -r requirements.txt
-```
-
-## Usage
-
-Provide a gzipped edge list in tab-separated format and run:
-
-```
-python mosaic_PyG.py --edge-file /path/to/edges.tsv.gz
-```
-
-## Based on
-Original ideas & greedy coloring algorithm here https://arxiv.org/pdf/2410.05240
+We evaluated MOSAIC using abiomedical graph projection derived from the Data Distillery Knowledge Graph that contained 5,171 human genes and 10,147 phenotypes. Across embedding dimensions from 16 to 128, MOSAIC achieved node-type classification AUROCs from 0.9863 to 0.9926 and exceeded FastRP, Node2Vec, HashGNN, and GraphSAGE. For gene-phenotype link prediction, validation and test associations were withheld before embedding generation. Under progressive removal of all edges or specific edge classes, MOSAIC retained more node-label information than FastRP, including after extreme graph sparsification. In a focused DICER1 analysis, 106 of 137 documented phenotype associations received scores above 0.90, demonstrating concordance with known pleiotropic biology and prioritizing additional relationships for independent evaluation. These results support MOSAIC as a fully unsupervised framework for learning informative graph representations. Although demonstrated using a biomedical knowledge graph, MOSAIC is domain independent and can be applied to other complex networks.
